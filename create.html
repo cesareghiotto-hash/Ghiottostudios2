@@ -1,0 +1,188 @@
+<!-- FILENAME: create.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Just Create - Ghiotto Studios</title>
+<link rel="icon" href="Fav.png" type="image/png" />
+
+<style>
+  @font-face { font-family: 'Capuche'; src: url('Capuche.otf') format('opentype'); font-weight: normal; font-style: normal; }
+  @font-face { font-family: 'GaramondCustom'; src: url('Garamond.ttf') format('truetype'); font-weight: normal; font-style: normal; }
+
+  :root { --main-blue: #003380; }
+
+  body {
+    margin: 0; font-family: 'GaramondCustom', serif; font-size: 1.1rem; overflow-x: hidden;
+    color: var(--main-blue);
+    
+    /* Sfondo .webp */
+    background: url('create.webp') no-repeat center center fixed; 
+    background-size: cover;
+    
+    opacity: 0; transition: opacity 0.6s ease-in-out;
+  }
+  body.fade-out { opacity: 0; }
+
+  /* CSS CONDIVISO */
+  .float-shape { position: fixed; z-index: 1; pointer-events: none; border: 1px solid rgba(255,255,255,0.4); opacity: 0.85; backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); box-shadow: inset 0 0 20px rgba(255,255,255,0.5), 0 10px 20px rgba(0,0,0,0.2); transition: transform 0.12s linear; will-change: transform; }
+  #shape1 { width: 220px; height: 180px; background: rgba(255, 46, 46, 0.7); top: 8%; left: 4%; border-radius: 55% 40% 70% 45% / 60% 75% 35% 55%; }
+  #shape2 { width: 240px; height: 200px; background: rgba(43, 99, 255, 0.7); top: 36%; right: 6%; border-radius: 60% 70% 50% 65% / 70% 40% 65% 55%; }
+  #shape3 { width: 200px; height: 190px; background: rgba(255, 226, 59, 0.7); bottom: 12%; left: 16%; border-radius: 75% 40% 60% 35% / 50% 70% 45% 65%; }
+  #shape4 { width: 180px; height: 150px; background: rgba(255, 127, 0, 0.7); top: 24%; left: 46%; border-radius: 65% 55% 70% 40% / 55% 60% 50% 65%; }
+  #shape5 { width: 210px; height: 160px; background: rgba(0, 255, 166, 0.7); bottom: 18%; right: 12%; border-radius: 55% 70% 35% 60% / 60% 40% 70% 55%; }
+  #shape6 { width: 140px; height: 140px; background: rgba(255, 102, 179, 0.7); top: 10%; right: 28%; border-radius: 50% 65% 60% 40% / 55% 45% 65% 50%; }
+
+  /* HEADER DESKTOP */
+  header { width: 100%; height: 80px; background: rgba(255,255,255,0.7); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(255,255,255,0.5); display: flex; align-items: center; justify-content: space-between; padding: 0 1.5rem; position: fixed; top: 0; z-index: 100; box-sizing: border-box; }
+  .logo-area { display: flex; align-items: center; gap: 0.8rem; cursor: pointer; }
+  .custom-logo { height: 35px; width: auto; object-fit: contain; }
+  .studio-title { font-size: 1.8rem; font-family: 'Capuche', serif; white-space: nowrap; color: var(--main-blue); line-height: 1; margin-top: 5px; }
+  
+  .desktop-nav a { margin-left: 1.5rem; text-decoration: none; font-family: 'Capuche', serif; font-weight: normal; font-size: 1.5rem; color: var(--main-blue); transition: color 0.18s ease; cursor: pointer; }
+  .desktop-nav a:hover, .desktop-nav a.active { color:#ff4da6; }
+
+  .mobile-menu-trigger { display: none; }
+  .mobile-drawer-overlay { display: none; }
+
+  .page-header { margin-top: 100px; margin-bottom: 2rem; text-align: center; position: relative; z-index: 10; }
+  .page-header h1 { font-family: 'Capuche', serif; font-size: clamp(3rem, 8vw, 6rem); color: var(--main-blue); margin: 0; display: inline-block; padding: 1rem 3rem; background: rgba(255, 255, 255, 0.25); backdrop-filter: blur(10px); border-radius: 20px; border: 1px solid rgba(255,255,255,0.5); }
+  
+  .project-detail-container { max-width: 900px; margin: 0 auto; padding: 2rem; position: relative; z-index: 10; }
+  
+  .glass-big-card-vertical {
+    background: rgba(255, 255, 255, 0.5); 
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 30px;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+    display: flex; flex-direction: column; align-items: center; padding: 3rem 2rem; gap: 2rem;
+  }
+
+  .vertical-image { width: 100%; display: flex; justify-content: center; margin-bottom: 1rem; }
+  /* Immagine .webp */
+  .vertical-image img { max-width: 100%; height: auto; max-height: 80vh; object-fit: contain; filter: drop-shadow(0 20px 30px rgba(0,0,0,0.25)); }
+
+  footer { padding: 3rem; text-align:center; position: relative; z-index: 10; color: var(--main-blue); background: rgba(255,255,255,0.5); backdrop-filter: blur(5px); font-family: 'GaramondCustom', serif; font-weight: bold; margin-top: 3rem; }
+
+  /* ========================================= */
+  /*  MOBILE STYLES (Max Width 768px)          */
+  /* ========================================= */
+  @media (max-width: 768px) {
+    body { background-attachment: scroll !important; background-position: center center; }
+    
+    /* Header Mobile */
+    header { padding: 0 1.5rem; justify-content: center; }
+    .desktop-nav { display: none; }
+    .studio-title { display: none; }
+    .logo-area { position: absolute; left: 50%; transform: translateX(-50%); }
+    .custom-logo { height: 30px; }
+    
+    /* Trigger e Drawer */
+    .mobile-menu-trigger { display: block; position: absolute; right: 1.5rem; font-family: 'Capuche', serif; font-size: 1.5rem; color: var(--main-blue); cursor: pointer; z-index: 201; }
+    .mobile-drawer-overlay { display: block; position: fixed; top: 0; right: -100%; width: 85%; height: 100vh; background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); z-index: 200; transition: right 0.4s cubic-bezier(0.25, 1, 0.5, 1); box-shadow: -10px 0 30px rgba(0,0,0,0.1); padding: 6rem 2rem 2rem 2rem; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between; }
+    .mobile-drawer-overlay.open { right: 0; }
+    .close-menu-btn { position: absolute; top: 1.5rem; right: 1.5rem; font-size: 3rem; font-family: 'GaramondCustom', serif; color: var(--main-blue); cursor: pointer; line-height: 1; }
+    .drawer-links { display: flex; flex-direction: column; gap: 2rem; align-items: center; }
+    .drawer-links a { font-family: 'Capuche', serif; font-size: 2.5rem; color: var(--main-blue); text-decoration: none; }
+    .drawer-footer { text-align: center; font-family: 'Capuche', serif; font-size: 1.2rem; color: var(--main-blue); opacity: 0.8; border-top: 1px solid rgba(0,51,128,0.2); padding-top: 1.5rem; }
+    
+    /* Adattamenti Contenuto */
+    .project-detail-container { padding: 2rem 1rem; width: 95%; box-sizing: border-box; }
+    .glass-big-card-vertical { padding: 2rem 1rem; }
+    .vertical-image img { max-height: 50vh; } 
+  }
+</style>
+</head>
+<body>
+
+<div id="shape1" class="float-shape"></div>
+<div id="shape2" class="float-shape"></div>
+<div id="shape3" class="float-shape"></div>
+<div id="shape4" class="float-shape"></div>
+<div id="shape5" class="float-shape"></div>
+<div id="shape6" class="float-shape"></div>
+
+<header>
+  <!-- Link Home -->
+  <div class="logo-area" onclick="transitionToPage('portfolio_website.html')">
+    <img src="logo.png" alt="Ghiotto Studios Logo" class="custom-logo">
+    <div class="studio-title">Ghiotto Studios</div>
+  </div>
+
+  <!-- Desktop Nav -->
+  <nav class="desktop-nav">
+    <a href="#" onclick="transitionToPage('about.html')">About</a>
+    <a href="#" onclick="transitionToPage('projects.html')" class="active">Projects</a>
+    <a href="#" onclick="transitionToPage('contacts.html')">Contacts</a>
+  </nav>
+
+  <!-- Mobile Trigger -->
+  <div class="mobile-menu-trigger" onclick="toggleMobileMenu()">Menu</div>
+</header>
+
+<!-- Mobile Drawer -->
+<div id="mobileDrawer" class="mobile-drawer-overlay">
+  <div class="close-menu-btn" onclick="toggleMobileMenu()">&times;</div>
+  <div class="drawer-links">
+    <a href="#" onclick="transitionToPage('about.html')">About</a>
+    <a href="#" onclick="transitionToPage('projects.html')" style="color:#ff4da6;">Projects</a>
+    <a href="#" onclick="transitionToPage('contacts.html')">Contacts</a>
+  </div>
+  <div class="drawer-footer">Ghiotto Studios</div>
+</div>
+
+<section class="page-header">
+  <h1>Just Create</h1>
+</section>
+
+<div class="project-detail-container">
+  <article class="glass-big-card-vertical">
+    <div class="vertical-image">
+      <!-- Immagine .webp -->
+      <img src="create.webp" alt="Just Create Poster">
+    </div>
+    <!-- Nessuna descrizione o freccia qui -->
+  </article>
+</div>
+
+<footer>© 2025 Ghiotto Studios — All rights reserved</footer>
+
+<script>
+window.addEventListener('load', function() { document.body.style.opacity = '1'; });
+function transitionToPage(url) {
+    document.body.classList.add('fade-out');
+    setTimeout(function() { window.location.href = url; }, 500);
+}
+
+function toggleMobileMenu() {
+    const drawer = document.getElementById('mobileDrawer');
+    drawer.classList.toggle('open');
+}
+
+const shapes = Array.from(document.querySelectorAll('.float-shape'));
+const params = shapes.map((_, i)=>({mxFactor:0.03+i*0.015, scrollFactor:0.08+i*0.03, wobbleSpeed:0.8+i*0.25, wobbleAmp:6+i*4, rotateAmp:3+i*2.5}));
+let mouseX=window.innerWidth/2, mouseY=window.innerHeight/2, scrollY=window.scrollY||0;
+document.addEventListener('mousemove', e=>{mouseX=e.clientX; mouseY=e.clientY});
+window.addEventListener('scroll', ()=>{scrollY=window.scrollY});
+function animate(time){
+  shapes.forEach((s,i)=>{
+    const p=params[i];
+    const mx=(window.innerWidth/2-mouseX)*p.mxFactor;
+    const my=(window.innerHeight/2-mouseY)*p.mxFactor;
+    const sy=scrollY*p.scrollFactor;
+    const wobbleX=Math.sin(time*0.001*p.wobbleSpeed+i)*p.wobbleAmp;
+    const wobbleY=Math.cos(time*0.001*p.wobbleSpeed+i*1.3)*p.wobbleAmp*0.6;
+    const rotate=Math.sin(time*0.0006*p.wobbleSpeed+i)*p.rotateAmp;
+    const tx=mx+wobbleX;
+    const ty=sy+my+wobbleY;
+    s.style.transform=`translate(${tx}px, ${ty}px) rotate(${rotate}deg)`;
+  });
+  requestAnimationFrame(animate);
+}
+requestAnimationFrame(animate);
+</script>
+</body>
+</html>
